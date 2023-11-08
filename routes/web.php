@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    if (Auth::check()) {
+        return redirect()->route('chatify');
+    } else {
+        return redirect()->route('login');
+    }
 });
 
 Route::middleware([
@@ -24,5 +28,5 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         return redirect()->route('chatify');
-    });
+    })->name('dashboard');
 });
